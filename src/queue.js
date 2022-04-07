@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { ListNode } = require('../extensions/list-node.js');
+const { ListNode } = require('../extensions/list-node.js');
 
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
@@ -15,22 +15,75 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 class Queue {
 
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    constructor() {
+        this.queue;
+    }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+    printList(head = this.queue) {
 
-  dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+        let selectedNode = head;
+
+        do {
+            console.log(`current = ${selectedNode.value} next = ${selectedNode.next ? selectedNode.next.value : null}`)
+            selectedNode = selectedNode.next;
+        }
+        while (selectedNode)
+
+    }
+
+    getUnderlyingList() {
+        return this.queue;
+    }
+
+    getLast() {
+
+        let selectedNode = this.queue
+        let head = this.queue
+
+        while (selectedNode) {
+
+            if (selectedNode) {
+                head = selectedNode;
+            }
+            selectedNode = selectedNode.next;
+        }
+
+        return head;
+    }
+
+    enqueue(value) {
+
+        let lastNode = this.getLast();
+        let newNode = new ListNode;
+        newNode.value = value;
+
+        if (lastNode) {
+            lastNode.next = newNode
+        } else {
+            this.queue = newNode;
+        }
+    }
+
+    dequeue() {
+        let deletedItem = this.queue.value;
+        this.queue = this.queue.next;
+        return deletedItem;
+    }
 }
 
 module.exports = {
-  Queue
+    Queue
 };
+
+// const queue = new Queue();
+
+// queue.enqueue(1);
+// queue.enqueue(2);
+// queue.enqueue(3);
+// queue.enqueue(4);
+// queue.printList();
+
+// console.log(queue.getUnderlyingList())
+
+// console.log(queue.dequeue())
+// queue.printList();
